@@ -19,7 +19,7 @@ public final class StaffService {
     }
 
     public void create(StaffDto staffDto) {
-        staffRepository.add(convertDtoToPatient(staffDto));
+        staffRepository.add(convertDtoToStaff(staffDto));
     }
 
     public void delete(String id) {
@@ -36,7 +36,7 @@ public final class StaffService {
         return staffList.stream().map(staff -> convertStaffToDto(staff)).collect(Collectors.toList());
     }
 
-    private Staff convertDtoToPatient(StaffDto staffDto) {
+    private Staff convertDtoToStaff(StaffDto staffDto) {
         return new Staff(
                 new StaffId(staffDto.id),
                 new FullName(staffDto.fullName)
