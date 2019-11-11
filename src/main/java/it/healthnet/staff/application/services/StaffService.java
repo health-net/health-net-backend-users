@@ -23,17 +23,17 @@ public final class StaffService {
     }
 
     public void delete(String id) {
-        var patient = staffRepository.get(new StaffId(id));
-        staffRepository.remove(patient);
+        var staff = staffRepository.get(new StaffId(id));
+        staffRepository.remove(staff);
     }
 
     public StaffDto getOneById(String id) {
-        return convertPatientToDto(staffRepository.get(new StaffId(id)));
+        return convertStaffToDto(staffRepository.get(new StaffId(id)));
     }
 
     public List<StaffDto> getAll() {
-        var patients = staffRepository.getAll();
-        return patients.stream().map(patient -> convertPatientToDto(patient)).collect(Collectors.toList());
+        var staffList = staffRepository.getAll();
+        return staffList.stream().map(staff -> convertStaffToDto(staff)).collect(Collectors.toList());
     }
 
     private Staff convertDtoToPatient(StaffDto staffDto) {
@@ -43,7 +43,7 @@ public final class StaffService {
         );
     }
 
-    private StaffDto convertPatientToDto(Staff staff) {
+    private StaffDto convertStaffToDto(Staff staff) {
         return new StaffDto(
                 staff.getId().getValue(),
                 staff.getFullName().getValue()
