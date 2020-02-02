@@ -1,10 +1,8 @@
 package it.healthnet.staff.application.services;
 
 import it.healthnet.staff.application.dtos.StaffDto;
-import it.healthnet.staff.domain.staff.FullName;
-import it.healthnet.staff.domain.staff.Staff;
-import it.healthnet.staff.domain.staff.StaffRepository;
-import it.healthnet.staff.domain.staff.StaffId;
+import it.healthnet.staff.application.dtos.StaffRegistrationDto;
+import it.healthnet.staff.domain.staff.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +16,8 @@ public final class StaffService {
         this.staffRepository = staffRepository;
     }
 
-    public void create(StaffDto staffDto) {
-        staffRepository.add(convertDtoToStaff(staffDto));
+    public void create(StaffRegistrationDto staffDto) {
+        staffRepository.add(convertStaffRegistrationDtoToStaff(staffDto));
     }
 
     public void delete(String id) {
@@ -36,17 +34,14 @@ public final class StaffService {
         return staffList.stream().map(staff -> convertStaffToDto(staff)).collect(Collectors.toList());
     }
 
-    private Staff convertDtoToStaff(StaffDto staffDto) {
-        return new Staff(
-                new StaffId(staffDto.id),
-                new FullName(staffDto.fullName)
-        );
-    }
-
     private StaffDto convertStaffToDto(Staff staff) {
         return new StaffDto(
                 staff.getId().getValue(),
                 staff.getFullName().getValue()
         );
+    }
+
+    private Staff convertStaffRegistrationDtoToStaff(StaffRegistrationDto dto){
+        return new Staff(new Email(dto.email),dto.password, new FullName(dto.fullName));
     }
 }

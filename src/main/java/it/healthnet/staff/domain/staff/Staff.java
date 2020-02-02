@@ -7,9 +7,27 @@ import java.util.Objects;
 public final class Staff implements AggregateRoot<Staff> {
     private final StaffId id;
     private final FullName fullName;
+    private final Email email;
+    private final String password;
 
     public Staff(StaffId id, FullName fullName) {
         this.id = id;
+        this.fullName = fullName;
+        this.password = null;
+        this.email = null;
+    }
+
+    public Staff(StaffId id, FullName fullName, Email email){
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = null;
+    }
+
+    public Staff(Email email, String password, FullName fullName){
+        this.email = email;
+        this.password = password;
+        this.id = null;
         this.fullName = fullName;
     }
 
@@ -19,6 +37,14 @@ public final class Staff implements AggregateRoot<Staff> {
 
     public FullName getFullName() {
         return fullName;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

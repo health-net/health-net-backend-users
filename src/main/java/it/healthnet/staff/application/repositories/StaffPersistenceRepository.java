@@ -26,7 +26,10 @@ public final class StaffPersistenceRepository implements StaffRepository {
 
     @Override
     public boolean contains(Staff staff) {
-        return staffMapper.selectById(staff.getId()).size() > 0;
+            if(staffMapper.selectByEmail(staff.getEmail()).size()==0)
+                return false;
+            else
+                return true;
     }
 
     @Override
@@ -39,10 +42,7 @@ public final class StaffPersistenceRepository implements StaffRepository {
     @Override
     public Staff get(StaffId id) {
         var patients = staffMapper.selectById(id);
-        if(patients.size() == 0) {
-            throw new NoSuchElementException("The staff does not exist");
-        }
-        return patients.get(0);
+        return patients;
     }
 
     @Override

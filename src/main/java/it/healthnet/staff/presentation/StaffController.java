@@ -1,6 +1,7 @@
 package it.healthnet.staff.presentation;
 
 import it.healthnet.staff.application.dtos.StaffDto;
+import it.healthnet.staff.application.dtos.StaffRegistrationDto;
 import it.healthnet.staff.application.services.StaffService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public final class StaffController {
     }
 
     @PostMapping
-    public void create(@RequestBody StaffDto staffDto) {
+    public void create(@RequestBody StaffRegistrationDto staffDto) {
         try {
             staffService.create(staffDto);
         } catch (IllegalArgumentException | IllegalStateException e) {
