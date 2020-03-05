@@ -29,13 +29,13 @@ public final class StaffMapper {
     }
 
     public void insert(Staff staff) {
-        RequestBodyEntity tmp = Unirest.post("https://healthnet.eu.auth0.com/api/v2/users").header("Authorization", "Bearer "+database.getJWT()).header("Content-Type", "application/json").body(
+        try{
+        HttpResponse<JsonNode> tmp = Unirest.post("https://healthnet.eu.auth0.com/api/v2/users").header("Authorization", "Bearer "+database.getJWT()).header("Content-Type", "application/json").body(
                 "{\"email\":\""+staff.getEmail().getValue()+"\", \"password\":\""+staff.getPassword()
                 +"\", \"name\":\""+staff.getFullName().getValue()+"\", \"connection\":\"Username-Password-Authentication\"}"
-        );
+        ).asJson();
 
-        try {
-            System.out.println(tmp.asJson().getBody().toString());
+        if(tmp.getStatus()==400) throw new IllegalArgumentException();
         } catch (UnirestException e) {
             e.printStackTrace();
         }

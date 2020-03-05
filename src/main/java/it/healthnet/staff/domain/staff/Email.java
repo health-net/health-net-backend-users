@@ -3,22 +3,13 @@ package it.healthnet.staff.domain.staff;
 import it.healthnet.staff.domain.shared.ValueObject;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import javax.validation.Validator;
 import java.util.Objects;
 
 public final class Email implements ValueObject<Email> {
     private final String value;
 
     public Email(String value) {
-        validate(value);
         this.value = value;
-    }
-
-    private void validate(String email) {
-
-        if(!EmailValidator.getInstance().isValid(email)) {
-            throw new IllegalArgumentException("The value specified for the email is not valid");
-        }
     }
 
     public String getValue() {
