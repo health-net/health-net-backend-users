@@ -22,6 +22,7 @@ public final class StaffController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody StaffRegistrationDto staffDto) {
         try {
             staffService.create(staffDto);
