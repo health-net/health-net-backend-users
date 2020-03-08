@@ -37,8 +37,8 @@ public final class StaffService {
     private StaffDto convertStaffToDto(Staff staff) {
         return new StaffDto(
                 staff.getId().getValue(),
-                staff.getFullName().getValue()
-        );
+                staff.getEmail().getValue(),
+                staff.getFullName().getValue());
     }
 
     private Staff convertStaffRegistrationDtoToStaff(StaffRegistrationDto dto){
